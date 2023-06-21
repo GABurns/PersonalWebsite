@@ -1,9 +1,24 @@
 ---
 title: "Gareth Burns"
+about:
+  template: jolla
+  image: profile.jpg
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/GarethBurns4.com
+    - icon: github
+      text: Github
+      href: https://github.com/GABurns
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/drgarethburns/
 ---
 
-Welcome!
+## Education
 
-This is a my personal website that is still under construction but feel free to use the existing resources, whilst it's being set up.
+Queen's University, Belfast | Belfast, UK
+PhD in Computational Biology | Sept 2009 - December 2012
 
-If you have any feedback please DM me on [Twitter](https://twitter.com/GarethBurns4) or [LinkedIn](https://www.linkedin.com/in/drgarethburns/).
+Queen's University, Belfast | Belfast, UK
+B.Sc Hons in Environmental Biology | Sept 2004 - June 2007
