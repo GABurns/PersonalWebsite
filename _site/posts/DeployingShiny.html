@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gareth Burns">
+<meta name="dcterms.date" content="2021-05-22">
+<meta name="description" content="This was a simple Shiny application deployed on Shinyapps.io that highlighted some of the lessons learnt in going from desktop analysis to deploying on cloud.">
+
+<title>Data Burns - Planning, Implementing, Developing &amp; Deploying in Days!</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Data Burns</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blogs.html">
+ <span class="menu-text">Blogs</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-should-i-structure-my-code" id="toc-how-should-i-structure-my-code" class="nav-link active" data-scroll-target="#how-should-i-structure-my-code">How should I structure my code?</a></li>
+  <li><a href="#how-do-i-store-and-retrieve-data" id="toc-how-do-i-store-and-retrieve-data" class="nav-link" data-scroll-target="#how-do-i-store-and-retrieve-data">How do I store and retrieve data?</a></li>
+  <li><a href="#failure-to-build.what-do-you-mean" id="toc-failure-to-build.what-do-you-mean" class="nav-link" data-scroll-target="#failure-to-build.what-do-you-mean">Failure to build….what do you mean!?</a></li>
+  <li><a href="#but-it-works-on-my-machine" id="toc-but-it-works-on-my-machine" class="nav-link" data-scroll-target="#but-it-works-on-my-machine">But it works on my machine!</a></li>
+  <li><a href="#youre-not-meant-to-use-the-app-that-way" id="toc-youre-not-meant-to-use-the-app-that-way" class="nav-link" data-scroll-target="#youre-not-meant-to-use-the-app-that-way">You’re not meant to use the app that way!</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Planning, Implementing, Developing &amp; Deploying in Days!</h1>
+</div>
+
+<div>
+  <div class="description">
+    This was a simple Shiny application deployed on Shinyapps.io that highlighted some of the lessons learnt in going from desktop analysis to deploying on cloud.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gareth Burns </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 22, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Over 150 attendees at the PSI conference player the <a href="https://exploristics.com/">Exploristics</a> Higher or Lower web app - and <em>didn’t they all do well!?</em> I was delighted to see the game generated so much interest, many people expressed an interest in the how we deployed the app on the cloud and that’s the motivation for this blog. This app is a microcosm of developing and deploying a Statistical Shiny app on the cloud. This blog is aimed at people who are experienced in developing desktop R scripts and have a desire to take the next step to create a Shiny app and deploy on the cloud.</p>
+<p>The premise of our app was simply to act as a hook to encourage attendees to visit the <a href="https://exploristics.com/">Exploristics</a> stand and learn more about the products and services we offer. The challenge was to gather requirements, design, develop, implement, test and deploy an application that was a simple game in <strong>only a few days!</strong></p>
+<p>The Higher of Lower game is based on the classic card game: an initial card is drawn from a standard deck of cards. Another card is then drawn from the deck and the player must guess if this drawn card will be of higher or lower value than the initial card. From a statistical perspective this is quite a simple process – random sampling without replacement of the deck and a logic-based approach of the guess. Although the statistical method and issues faced may seem trivial, they provide tangible examples of many of common issues faced and I attempt to generalize the solutions. When you attempt to deploy more complex statistical models it’ll be easier to identify the issues you’re facing, how to debug your code and solver your problems.</p>
+<p>At <a href="https://exploristics.com/">Exploristics</a> we use Shiny apps to provide dynamic and interactive visualization tools to enable clients to interpret the complex multi-dimensional data or models generated by <a href="https://exploristics.com/keruscloud-platform-overview/">KerusCloud</a>. At the Jumping Rivers Shiny in Production conference, I spoke about the experiences and technology to create robust enterprise grade Shiny applications. However, the remit for the Higher or Lower application was very different from how we usually develop software – this was to be a one-off application to be used at the PSI conference and we only had a couple of days for development. This mean that many of our usual processes needed to be accelerated and we had to accept some trade-offs.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/pHLT5IfgfM0" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Although we have experience in developing Shiny apps using a new technology such as <a href="https://www.shinyapps.io/">Shinyapps.io</a> usually leads to unexpected changes that take time to resolve. The time frame was extremely short to deal with any technology issues and &nbsp;address any feedback from stakeholders. However, as our preliminary research into <a href="https://www.shinyapps.io/">Shinyapps.io</a> looked promising we decided to have a go!.</p>
+<p>“If I have seen further than others, it is by standing upon the shoulders of giants.”</p>
+<p>Isaac Newton</p>
+<p>R and Shiny are open source and supported by a vibrant and passionate community of individuals. Without the years of effort and innovation from these individuals I would not have been able to deliver the app within our timescales. Any difficulty I faced on my part is not a criticism of these individuals but rather my experience under extremely tight time constraints that resulted in a limited amount of time to research appropriate solutions. &nbsp;</p>
+<section id="how-should-i-structure-my-code" class="level2">
+<h2 class="anchored" data-anchor-id="how-should-i-structure-my-code">How should I structure my code?</h2>
+<p>There are multiple ways to structure the files of a Shiny application and deciding which is the best often comes with experience or researching the best approach based upon your use case. I’d previously had the privilege of presenting along with Colin Fay at the Jumping Rivers Shiny in Production Conference and have read his book Engineering Production Grade Shiny apps but had never formally used the <a href="https://engineering-shiny.org/golem.html">golem</a> 📦. This provided me an opportunity to test out this framework and bring any lessons learnt into other Shiny apps.</p>
+<p>Using the <a href="https://engineering-shiny.org/golem.html">golem</a> 📦 package for the first time was a delight, it created much of the boiler plate code for the application, provided functions to carry out common tasks and laid out the process in a systematic order to follow. This enforced good practice such as modularization of code and enabled me to rapidly write production quality code. I’ve previously developed production grade Shiny apps and was already very familiar concepts such as Shiny modules. I’d really recommend reading Colins book as it articulates and conceptualizes many of the issues I have faced. My biggest take home message from the book is – “<strong>Don’t jump straight into coding!</strong>”</p>
+</section>
+<section id="how-do-i-store-and-retrieve-data" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-i-store-and-retrieve-data">How do I store and retrieve data?</h2>
+<p>Shiny apps are transient by design and sessions don’t persist. &nbsp;This means that all information is lost between using the app. Therefore, if you wish to store information that the app needs to access in the future or provide a central data store you need to provide your own persistent data storage. There’s a great article on Posit for doing providing <a href="https://shiny.posit.co/r/articles/build/persistent-data-storage/">persistent data storage</a>. For someone used to working on a desktop computer this is an unusual concept as you always have access to your hard-drive and by in large don’t need to worry about access.</p>
+<p>Usually, we use AWS S3 as our storage solution, but we didn’t want set up and manage access credentials for a one off project so decided to use Googlesheets as it was well documented and the package was actively developed. Whilst we got this to work locally, we could not get the authorization to work on <a href="https://www.shinyapps.io/">Shinyapps.io</a> and so decided to use <a href="https://cran.r-project.org/web/packages/rdrop2/rdrop2.pdf">rdrop2</a> 📦 instead.</p>
+<p>The <a href="https://cran.r-project.org/web/packages/rdrop2/rdrop2.pdf">rdrop2</a> 📦 has no maintainer on CRAN so we had some initial reservations and we had to write some custom functionality to have refresh-able credentials. This cost us over a day’s development time which in the timescales of our project was huge!</p>
+<p>Going forward we will assess the <a href="https://pins.rstudio.com/">Pins</a> 📦 or use AWS S3, though the AWS solutions is not be suitable for people wanting to avoid a paid for service, although it has a free tier with limited usage.</p>
+</section>
+<section id="failure-to-build.what-do-you-mean" class="level2">
+<h2 class="anchored" data-anchor-id="failure-to-build.what-do-you-mean">Failure to build….what do you mean!?</h2>
+<p>When working with an application, it’s a very iterative process and when you are inexperienced with the technology or rushing this can lead to lots of simple mistakes. Within a Shiny application this can mean the package fails to build, or a failure at the deployment stage or the application crashing when in use. This can be a frustrating process to those not used to it as it can take several minutes to go through these processes before realizing you’ve just nested a bracket in the wrong place!</p>
+<p>This can lead to taking shortcuts in manual testing of an application which allows bugs to creep in and only manifest when in production. Structuring your application as a package allows you to leverage resources such as unit testing using <a href="https://testthat.r-lib.org/">testthat</a> 📦 or <a href="https://rstudio.github.io/shinytest2/">shinytest2</a> 📦 and automate the testing process, saving time and enforcing that these tests are carried out.</p>
+<p>In this project, I often found that I would add a package on my computer but forget to add it to the DESCRIPTION file, this would result in the package not being accessible to the app on <a href="https://www.shinyapps.io/">Shinyapps.io</a> and failing to build and deploy. To the uninitiated this can be a frustrating experience as identifying the issue often takes much longer than implementing a solution.</p>
+</section>
+<section id="but-it-works-on-my-machine" class="level2">
+<h2 class="anchored" data-anchor-id="but-it-works-on-my-machine">But it works on my machine!</h2>
+<p>Another issue that is conceptually different for those used to developing on the desktop is that different environments can result in an app working on your computer but not in the cloud. This is a very common occurrence in software development which can arise from having different or missing environment variables or the file system being different.</p>
+<p>One issue that I had was that the setting of options required for the “gargle” package were silently being dropped when deployed on <a href="https://www.shinyapps.io/">Shinyapps.io</a> . This mean that locally I could get security tokens to work but they were failing on <a href="https://www.shinyapps.io/">Shinyapps.io</a>. This was a difficult issue to identify especially as the interactive debugging methods on a desktop can’t be used on a cloud-based environment. This requires the use of the logs to identify the issue.</p>
+</section>
+<section id="youre-not-meant-to-use-the-app-that-way" class="level2">
+<h2 class="anchored" data-anchor-id="youre-not-meant-to-use-the-app-that-way">You’re not meant to use the app that way!</h2>
+<p>When you develop and subsequently test an application you have an inherent idea of how it should be used. Different people will have a range of IT abilities or understanding of terminology. This often leads to the application being used in a way you hadn’t anticipated, or they hit an unusual use case from a scenario that your testing hadn’t encountered.</p>
+<p>When testing the game I’d only played from start to finish and then redeployed with subsequent changes. What I hadn’t realized was that my application had state, I’d reset the user details after each game but not the deck of cards. Effectively this meant a single deck of cards was used across games and eventually there were no more cards to draw from the deck – and this caused the game to crash.</p>
+<p>I really enjoyed making the <a href="https://exploristics.com/">Exploristics</a> Higher or Lower app and I hope everyone enjoyed playing it too. Hopefully the lessons learnt by me will help you on your journey to creating interactive tools for your clients!</p>
+<p>Follow <a href="https://exploristics.com/">Exploristics</a> on <a href="https://twitter.com/Exploristics">Twitter</a> or <a href="https://www.linkedin.com/company/exploristics/">LinkedIn</a> to get the latest updates clinical trail simulation, interactive data visualization and the</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

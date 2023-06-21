@@ -1,5 +1,8 @@
 ---
-title: "Blog"
+title: "Planning, Implementing, Developing & Deploying in Days!"
+description: "This was a simple Shiny application deployed on Shinyapps.io that highlighted some of the lessons learnt in going from desktop analysis to deploying on cloud."
+author: "Gareth Burns"
+date: "5/22/2021"
 ---
 
 Over 150 attendees at the PSI conference player the [Exploristics](https://exploristics.com/) Higher or Lower web app - and *didn't they all do well!?* I was delighted to see the game generated so much interest, many people expressed an interest in the how we deployed the app on the cloud and that's the motivation for this blog. This app is a microcosm of developing and deploying a Statistical Shiny app on the cloud. This blog is aimed at people who are experienced in developing desktop R scripts and have a desire to take the next step to create a Shiny app and deploy on the cloud.
@@ -54,7 +57,7 @@ One issue that I had was that the setting of options required for the "gargle" p
 
 When you develop and subsequently test an application you have an inherent idea of how it should be used. Different people will have a range of IT abilities or understanding of terminology. This often leads to the application being used in a way you hadn't anticipated, or they hit an unusual use case from a scenario that your testing hadn't encountered.
 
-When testing the game I'd only played from start to finish and then redeployed with subsequent changes. What I hadn't realized was that my application had state, I'd reset the user details after each game but not the deck of cards.  Effectively this meant a single deck of cards was used across games and eventually there were no more cards to draw from the deck -- and this caused the game to crash.
+When testing the game I'd only played from start to finish and then redeployed with subsequent changes. What I hadn't realized was that my application had state, I'd reset the user details after each game but not the deck of cards. Effectively this meant a single deck of cards was used across games and eventually there were no more cards to draw from the deck -- and this caused the game to crash.
 
 I really enjoyed making the [Exploristics](https://exploristics.com/) Higher or Lower app and I hope everyone enjoyed playing it too. Hopefully the lessons learnt by me will help you on your journey to creating interactive tools for your clients!
 
