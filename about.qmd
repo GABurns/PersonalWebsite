@@ -1,0 +1,15 @@
+---
+title: "Welcome"
+---
+
+Welcome!
+
+This site is still under construction but feel free to use the existing resources.
+
+I've been working with Free Open Source Software and programming languages for over a decade and found it to be the an extremely passionate and open community. During this time I've made lots of mistakes and often several times!
+
+There's a lot of good technical resources online but what I've found when speaking to junior staff there's less information on the experiences and expectations. Senior staff didn't get to their technical ability without many frustrations and these are ok!
+
+I've found software development is a very risk averse industry. Requirements are gathered up front and making a seemingly simple change can have cascading effects on the software which leads to individuals wanting to work within very defined boundaries. Having two children of my own I've learnt that the only way to learn is to make mistakes! If you only did what you know you could do, you'd never learn to crawl, walk or talk. Children will happily fall over a dozen times in a row but eventually they'll be walking.
+
+I've done a lot of in-house lunchtime knowledge transfer sessions, these were generally aimed at novice R users wanting to improve their analysis scripts through writing functions or packages. Bringing these together online will hopefully be of use to novice users. They're not aimed at being a definitive resource but an alternative explanation to technical documentation, providing the minimal steps people require to get a functional benefit .
