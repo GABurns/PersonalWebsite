@@ -1,10 +1,6 @@
 ---
-title: "Welcome"
+title: "About Me"
 ---
-
-Welcome!
-
-This site is still under construction but feel free to use the existing resources.
 
 I've been working with Free Open Source Software and programming languages for over a decade and found it to be the an extremely passionate and open community. During this time I've made lots of mistakes and often several times!
 

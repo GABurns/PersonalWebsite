@@ -1,5 +1,5 @@
 ---
-title: "Welcome"
+title: "Blog"
 ---
 
 Over 150 attendees at the PSI conference player the [Exploristics](https://exploristics.com/) Higher or Lower web app - and *didn't they all do well!?* I was delighted to see the game generated so much interest, many people expressed an interest in the how we deployed the app on the cloud and that's the motivation for this blog. This app is a microcosm of developing and deploying a Statistical Shiny app on the cloud. This blog is aimed at people who are experienced in developing desktop R scripts and have a desire to take the next step to create a Shiny app and deploy on the cloud.

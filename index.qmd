@@ -1,11 +1,9 @@
 ---
-title: "PersonalWebsite"
+title: "Gareth Burns"
 ---
 
-This is a Quarto website.
+Welcome!
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+This is a my personal website that is still under construction but feel free to use the existing resources, whilst it's being set up.
 
-```{r}
-1 + 1
-```
+If you have any feedback please DM me on [Twitter](https://twitter.com/GarethBurns4) or [LinkedIn](https://www.linkedin.com/in/drgarethburns/).

@@ -44,15 +44,15 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Welcome",
+    "title": "About Me",
     "section": "",
-    "text": "Welcome!\nThis site is still under construction but feel free to use the existing resources.\nI’ve been working with Free Open Source Software and programming languages for over a decade and found it to be the an extremely passionate and open community. During this time I’ve made lots of mistakes and often several times!\nThere’s a lot of good technical resources online but what I’ve found when speaking to junior staff there’s less information on the experiences and expectations. Senior staff didn’t get to their technical ability without many frustrations and these are ok!\nI’ve found software development is a very risk averse industry. Requirements are gathered up front and making a seemingly simple change can have cascading effects on the software which leads to individuals wanting to work within very defined boundaries. Having two children of my own I’ve learnt that the only way to learn is to make mistakes! If you only did what you know you could do, you’d never learn to crawl, walk or talk. Children will happily fall over a dozen times in a row but eventually they’ll be walking.\nI’ve done a lot of in-house lunchtime knowledge transfer sessions, these were generally aimed at novice R users wanting to improve their analysis scripts through writing functions or packages. Bringing these together online will hopefully be of use to novice users. They’re not aimed at being a definitive resource but an alternative explanation to technical documentation, providing the minimal steps people require to get a functional benefit ."
+    "text": "I’ve been working with Free Open Source Software and programming languages for over a decade and found it to be the an extremely passionate and open community. During this time I’ve made lots of mistakes and often several times!\nThere’s a lot of good technical resources online but what I’ve found when speaking to junior staff there’s less information on the experiences and expectations. Senior staff didn’t get to their technical ability without many frustrations and these are ok!\nI’ve found software development is a very risk averse industry. Requirements are gathered up front and making a seemingly simple change can have cascading effects on the software which leads to individuals wanting to work within very defined boundaries. Having two children of my own I’ve learnt that the only way to learn is to make mistakes! If you only did what you know you could do, you’d never learn to crawl, walk or talk. Children will happily fall over a dozen times in a row but eventually they’ll be walking.\nI’ve done a lot of in-house lunchtime knowledge transfer sessions, these were generally aimed at novice R users wanting to improve their analysis scripts through writing functions or packages. Bringing these together online will hopefully be of use to novice users. They’re not aimed at being a definitive resource but an alternative explanation to technical documentation, providing the minimal steps people require to get a functional benefit ."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "PersonalWebsite",
+    "title": "Gareth Burns",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Welcome!\nThis is a my personal website that is still under construction but feel free to use the existing resources, whilst it’s being set up.\nIf you have any feedback please DM me on Twitter or LinkedIn."
   }
 ]
