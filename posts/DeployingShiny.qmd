@@ -2,10 +2,21 @@
 title: "Planning, Implementing, Developing & Deploying in Days!"
 description: "This was a simple Shiny application deployed on Shinyapps.io that highlighted some of the lessons learnt in going from desktop analysis to deploying on cloud."
 author: "Gareth Burns"
-date: "5/22/2021"
+categories:
+  - R
+  - Shiny
+image: img/cards.png
+image-alt: "3 playing cards showing aces"
+image-height: 100px
+reading-time: "2 min"
+date: "06/21/2023"
 ---
 
 Over 150 attendees at the PSI conference player the [Exploristics](https://exploristics.com/) Higher or Lower web app - and *didn't they all do well!?* I was delighted to see the game generated so much interest, many people expressed an interest in the how we deployed the app on the cloud and that's the motivation for this blog. This app is a microcosm of developing and deploying a Statistical Shiny app on the cloud. This blog is aimed at people who are experienced in developing desktop R scripts and have a desire to take the next step to create a Shiny app and deploy on the cloud.
+
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7072905986994237440" height="500" width="504" frameborder="0" allowfullscreen title="Embedded post">
+
+</iframe>
 
 The premise of our app was simply to act as a hook to encourage attendees to visit the [Exploristics](https://exploristics.com/) stand and learn more about the products and services we offer. The challenge was to gather requirements, design, develop, implement, test and deploy an application that was a simple game in **only a few days!**
 
@@ -17,9 +28,9 @@ At [Exploristics](https://exploristics.com/) we use Shiny apps to provide dynami
 
 Although we have experience in developing Shiny apps using a new technology such as [Shinyapps.io](https://www.shinyapps.io/) usually leads to unexpected changes that take time to resolve. The time frame was extremely short to deal with any technology issues and  address any feedback from stakeholders. However, as our preliminary research into [Shinyapps.io](https://www.shinyapps.io/) looked promising we decided to have a go!.
 
-"If I have seen further than others, it is by standing upon the shoulders of giants."
-
-Isaac Newton
+> *If I have seen further than others, it is by standing upon the shoulders of giants.*
+>
+> Isaac Newton
 
 R and Shiny are open source and supported by a vibrant and passionate community of individuals. Without the years of effort and innovation from these individuals I would not have been able to deliver the app within our timescales. Any difficulty I faced on my part is not a criticism of these individuals but rather my experience under extremely tight time constraints that resulted in a limited amount of time to research appropriate solutions.  
 
@@ -27,11 +38,11 @@ R and Shiny are open source and supported by a vibrant and passionate community 
 
 There are multiple ways to structure the files of a Shiny application and deciding which is the best often comes with experience or researching the best approach based upon your use case. I'd previously had the privilege of presenting along with Colin Fay at the Jumping Rivers Shiny in Production Conference and have read his book Engineering Production Grade Shiny apps but had never formally used the [golem](https://engineering-shiny.org/golem.html) 📦. This provided me an opportunity to test out this framework and bring any lessons learnt into other Shiny apps.
 
-Using the [golem](https://engineering-shiny.org/golem.html) 📦 package for the first time was a delight, it created much of the boiler plate code for the application, provided functions to carry out common tasks and laid out the process in a systematic order to follow. This enforced good practice such as modularization of code and enabled me to rapidly write production quality code. I've previously developed production grade Shiny apps and was already very familiar concepts such as Shiny modules. I'd really recommend reading Colins book as it articulates and conceptualizes many of the issues I have faced. My biggest take home message from the book is -- "**Don't jump straight into coding!**"
+Using the [golem](https://engineering-shiny.org/golem.html) 📦 package for the first time was a delight, it created much of the boiler plate code for the application, provided functions to carry out common tasks and laid out the process in a systematic order to follow. This enforced good practice such as modularization of code and enabled me to rapidly write production quality code. I've previously developed production grade Shiny apps and was already very familiar concepts such as Shiny modules. I'd really recommend reading Colin's book as it articulates and conceptualizes many of the issues I have faced. My biggest take home message from the book is -- "**Don't jump straight into coding!**"
 
 ## How do I store and retrieve data?
 
-Shiny apps are transient by design and sessions don't persist.  This means that all information is lost between using the app. Therefore, if you wish to store information that the app needs to access in the future or provide a central data store you need to provide your own persistent data storage. There's a great article on Posit for doing providing [persistent data storage](https://shiny.posit.co/r/articles/build/persistent-data-storage/). For someone used to working on a desktop computer this is an unusual concept as you always have access to your hard-drive and by in large don't need to worry about access.
+Shiny apps are transient by design and sessions don't persist. This means that all information is lost between using the app. Therefore, if you wish to store information that the app needs to access in the future or provide a central data store you need to provide your own persistent data storage. There's a great article on Posit for doing providing [persistent data storage](https://shiny.posit.co/r/articles/build/persistent-data-storage/). For someone used to working on a desktop computer this is an unusual concept as you always have access to your hard-drive and by in large don't need to worry about access.
 
 Usually, we use AWS S3 as our storage solution, but we didn't want set up and manage access credentials for a one off project so decided to use Googlesheets as it was well documented and the package was actively developed. Whilst we got this to work locally, we could not get the authorization to work on [Shinyapps.io](https://www.shinyapps.io/) and so decided to use [rdrop2](https://cran.r-project.org/web/packages/rdrop2/rdrop2.pdf) 📦 instead.
 

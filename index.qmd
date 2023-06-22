@@ -2,7 +2,7 @@
 title: "Gareth Burns"
 about:
   template: jolla
-  image: profile.jpg
+  image: img/profile.jpg
   links:
     - icon: twitter
       text: twitter
