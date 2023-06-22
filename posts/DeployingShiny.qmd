@@ -1,6 +1,6 @@
 ---
 title: "Planning, Implementing, Developing & Deploying in Days!"
-description: "This was a simple Shiny application deployed on Shinyapps.io that highlighted some of the lessons learnt in going from desktop analysis to deploying on cloud."
+description: "Discussing the lessions learnt going desktop analysis to deploying on Shiny application in the on Shinyapps.io using a simple example to highlight potential pitfalls to a novel user"
 author: "Gareth Burns"
 categories:
   - R
@@ -8,25 +8,44 @@ categories:
 image: img/cards.png
 image-alt: "3 playing cards showing aces"
 image-height: 100px
-reading-time: "2 min"
+reading-time: 6 min
 date: "06/21/2023"
 ---
 
-Over 150 attendees at the PSI conference player the [Exploristics](https://exploristics.com/) Higher or Lower web app - and *didn't they all do well!?* I was delighted to see the game generated so much interest, many people expressed an interest in the how we deployed the app on the cloud and that's the motivation for this blog. This app is a microcosm of developing and deploying a Statistical Shiny app on the cloud. This blog is aimed at people who are experienced in developing desktop R scripts and have a desire to take the next step to create a Shiny app and deploy on the cloud.
+Over 150 attendees at the PSI conference played the [Exploristics](https://exploristics.com/) Higher or Lower web app - and *didn't they all do well!?* I was delighted to see the game generated so much interest with many people expressed an interest in how we deployed the app on the cloud - that's the motivation for this blog. This app is a microcosm of developing and deploying a Statistical Shiny app on the cloud. This blog is aimed at people who are experienced in developing desktop R scripts and have a desire to take the next step to create a Shiny app and deploy on the cloud.
 
 <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7072905986994237440" height="500" width="504" frameborder="0" allowfullscreen title="Embedded post">
 
 </iframe>
 
-The premise of our app was simply to act as a hook to encourage attendees to visit the [Exploristics](https://exploristics.com/) stand and learn more about the products and services we offer. The challenge was to gather requirements, design, develop, implement, test and deploy an application that was a simple game in **only a few days!**
+The premise of our app was simply, to act as a hook to encourage attendees to visit the [Exploristics](https://exploristics.com/) stand and provide a fun activity for participants to engage in whilst stimulating further discussions around simulations or issues in creating user interfaces for clients to interact and visualize complex statistical models. The **challenge** was to gather requirements, **design**, **develop**, **implement**, **test** and **deploy** an application in **only a few days** in time for the conference**!**
 
-The Higher of Lower game is based on the classic card game: an initial card is drawn from a standard deck of cards. Another card is then drawn from the deck and the player must guess if this drawn card will be of higher or lower value than the initial card. From a statistical perspective this is quite a simple process -- random sampling without replacement of the deck and a logic-based approach of the guess. Although the statistical method and issues faced may seem trivial, they provide tangible examples of many of common issues faced and I attempt to generalize the solutions. When you attempt to deploy more complex statistical models it'll be easier to identify the issues you're facing, how to debug your code and solver your problems.
+The Higher or Lower game is based on the classic card game: an initial card is drawn from a standard deck of cards. Another card is then drawn from the deck and the player must guess if this drawn card will be of **higher** or **lower** value than the initial card. If the player guesses correct this process is repeated until
+
+The R code to achieve this code is quite a simple process -- [create a deck of cards](https://medium.com/@UsmanZX6R/a-deck-of-cards-with-r-13b14529d376) as a `data.frame`, random sampling this `data.frame` without replacement a deck of cards using the `sample` function.
+
+```{r, eval=FALSE}
+drawnCard <- sample(DeckOfCards, size = 1, replace = FALSE)
+```
+
+The outcome of the guess is also a simple logic-based approach using the `>` and `<` operators.
+
+```{r, eval=FALSE}
+# In the Shiny app the guess is retried from the UI from the inputs
+guess <- "<" # or can be ">" from UI
+
+# Assess if the logic of the guess is correct (returns TRUE)
+do.call("guess", drawnCard$value,  handCard$value)
+
+```
+
+Although the methodology may seem trivial, it provides tangible examples of some of the common issues faced. When you attempt to deploy more complex statistical models it'll be easier to identify the issues you're facing, how to debug your code and overcome these hurdles!
 
 At [Exploristics](https://exploristics.com/) we use Shiny apps to provide dynamic and interactive visualization tools to enable clients to interpret the complex multi-dimensional data or models generated by [KerusCloud](https://exploristics.com/keruscloud-platform-overview/). At the Jumping Rivers Shiny in Production conference, I spoke about the experiences and technology to create robust enterprise grade Shiny applications. However, the remit for the Higher or Lower application was very different from how we usually develop software -- this was to be a one-off application to be used at the PSI conference and we only had a couple of days for development. This mean that many of our usual processes needed to be accelerated and we had to accept some trade-offs.
 
 {{< video https://youtu.be/pHLT5IfgfM0 >}}
 
-Although we have experience in developing Shiny apps using a new technology such as [Shinyapps.io](https://www.shinyapps.io/) usually leads to unexpected changes that take time to resolve. The time frame was extremely short to deal with any technology issues and  address any feedback from stakeholders. However, as our preliminary research into [Shinyapps.io](https://www.shinyapps.io/) looked promising we decided to have a go!.
+Although we have experience in developing Shiny apps we haven't deployed to [Shinyapps.io](https://www.shinyapps.io/) before. Using any new technology usually leads to unexpected changes that take time to resolve. The time frame was extremely short to deal with any technology issues and  address any feedback from stakeholders. However, as our preliminary research into [Shinyapps.io](https://www.shinyapps.io/) looked promising we decided to have a go!.
 
 > *If I have seen further than others, it is by standing upon the shoulders of giants.*
 >
@@ -38,7 +57,9 @@ R and Shiny are open source and supported by a vibrant and passionate community 
 
 There are multiple ways to structure the files of a Shiny application and deciding which is the best often comes with experience or researching the best approach based upon your use case. I'd previously had the privilege of presenting along with Colin Fay at the Jumping Rivers Shiny in Production Conference and have read his book Engineering Production Grade Shiny apps but had never formally used the [golem](https://engineering-shiny.org/golem.html) 📦. This provided me an opportunity to test out this framework and bring any lessons learnt into other Shiny apps.
 
-Using the [golem](https://engineering-shiny.org/golem.html) 📦 package for the first time was a delight, it created much of the boiler plate code for the application, provided functions to carry out common tasks and laid out the process in a systematic order to follow. This enforced good practice such as modularization of code and enabled me to rapidly write production quality code. I've previously developed production grade Shiny apps and was already very familiar concepts such as Shiny modules. I'd really recommend reading Colin's book as it articulates and conceptualizes many of the issues I have faced. My biggest take home message from the book is -- "**Don't jump straight into coding!**"
+Using the [golem](https://engineering-shiny.org/golem.html) 📦 package for the first time was a delight, it created much of the boiler plate code for the application, provided functions to carry out common tasks and laid out the process in a systematic order to follow. This enforced good practice such as modularization of code and enabled me to rapidly write production quality code. I've previously developed production grade Shiny apps and was already very familiar concepts such as Shiny modules. I'd really recommend reading Colin's book as it articulates and conceptualizes many of the issues I have faced. My biggest take home message from the book is:
+
+> **Don't jump straight into coding!**
 
 ## How do I store and retrieve data?
 
@@ -62,13 +83,13 @@ In this project, I often found that I would add a package on my computer but for
 
 Another issue that is conceptually different for those used to developing on the desktop is that different environments can result in an app working on your computer but not in the cloud. This is a very common occurrence in software development which can arise from having different or missing environment variables or the file system being different.
 
-One issue that I had was that the setting of options required for the "gargle" package were silently being dropped when deployed on [Shinyapps.io](https://www.shinyapps.io/) . This mean that locally I could get security tokens to work but they were failing on [Shinyapps.io](https://www.shinyapps.io/). This was a difficult issue to identify especially as the interactive debugging methods on a desktop can't be used on a cloud-based environment. This requires the use of the logs to identify the issue.
+One issue that I had was that the setting of options required for the [gargle](https://gargle.r-lib.org/) 📦 were silently being dropped when deployed on [Shinyapps.io](https://www.shinyapps.io/). This mean that locally I could get security tokens to work but they were failing on [Shinyapps.io](https://www.shinyapps.io/). This was a difficult issue to identify especially as the interactive debugging methods on a desktop can't be used on a cloud-based environment. This requires the use of the logs to identify the issue.
 
 ## You're not meant to use the app that way!
 
 When you develop and subsequently test an application you have an inherent idea of how it should be used. Different people will have a range of IT abilities or understanding of terminology. This often leads to the application being used in a way you hadn't anticipated, or they hit an unusual use case from a scenario that your testing hadn't encountered.
 
-When testing the game I'd only played from start to finish and then redeployed with subsequent changes. What I hadn't realized was that my application had state, I'd reset the user details after each game but not the deck of cards. Effectively this meant a single deck of cards was used across games and eventually there were no more cards to draw from the deck -- and this caused the game to crash.
+When testing the game I'd only played from start to finish and then redeployed with subsequent changes. What I hadn't realized was that my application had state, I'd reset the user details after each game but not the deck of cards. Effectively this meant a single deck of cards was used across games and eventually when there were no more cards to draw from the deck and the application crashed.
 
 I really enjoyed making the [Exploristics](https://exploristics.com/) Higher or Lower app and I hope everyone enjoyed playing it too. Hopefully the lessons learnt by me will help you on your journey to creating interactive tools for your clients!
 
